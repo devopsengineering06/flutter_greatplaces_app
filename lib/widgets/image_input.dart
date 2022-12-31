@@ -14,7 +14,9 @@ import 'package:path_provider/path_provider.dart' as syspaths;
 */
 
 class ImageInput extends StatefulWidget {
-  const ImageInput({super.key});
+  final Function onSelectImage;
+
+  const ImageInput(this.onSelectImage, {super.key});
 
   @override
   State<ImageInput> createState() => _ImageInputState();
@@ -36,7 +38,7 @@ class _ImageInputState extends State<ImageInput> {
   │        Storing the Image on the Filesystem (on the Device)               │
   └──────────────────────────────────────────────────────────────────────────┘
    https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199936#questions/15918466
-   
+   https://github.com/devopsengineering06/flutter_greatplaces_app/commit/3a37d06db96ab620eff9113d6f151874240a55ef
 */
     setState(() {
       _storedImage = File(imageFile!.path);
@@ -44,12 +46,11 @@ class _ImageInputState extends State<ImageInput> {
 
     final appdir = await syspaths.getApplicationDocumentsDirectory();
     final filename = path.basename(imageFile!.path);
-    final savedImage =
-        await File(imageFile.path).copy('${appdir.path}/$filename');
-
-    print(appdir);
-    print(filename);
-    print(savedImage);
+    final savedImage = await _storedImage!.copy('${appdir.path}/$filename');
+    widget.onSelectImage(savedImage);
+    // print(appdir);
+    // print(filename);
+    // print(savedImage);
   }
 
   @override
