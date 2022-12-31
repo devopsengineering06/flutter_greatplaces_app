@@ -40,12 +40,25 @@ class _ImageInputState extends State<ImageInput> {
    https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199936#questions/15918466
    https://github.com/devopsengineering06/flutter_greatplaces_app/commit/3a37d06db96ab620eff9113d6f151874240a55ef
 */
+
+/* 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │                              Handling Errors                             │
+  └──────────────────────────────────────────────────────────────────────────┘
+   https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199956#questions/17730230
+   
+*/
+
+    if (imageFile == null) {
+      return;
+    }
+
     setState(() {
-      _storedImage = File(imageFile!.path);
+      _storedImage = File(imageFile.path);
     });
 
     final appdir = await syspaths.getApplicationDocumentsDirectory();
-    final filename = path.basename(imageFile!.path);
+    final filename = path.basename(imageFile.path);
     final savedImage = await _storedImage!.copy('${appdir.path}/$filename');
     widget.onSelectImage(savedImage);
     // print(appdir);

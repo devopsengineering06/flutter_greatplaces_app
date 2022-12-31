@@ -31,7 +31,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   │        Managing Data & Images via the Provider Package                   │
   └──────────────────────────────────────────────────────────────────────────┘
    https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199948#questions/15918466
-   
+   https://github.com/devopsengineering06/flutter_greatplaces_app/commit/2e02d365cd97e1f3531a5b16f5d7d45a8c3f49b0
 */
 
   void _selectImage(File pickedImage) {
