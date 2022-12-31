@@ -1,6 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
+/* 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │           Using Image Picker & The Device Camera                         │
+  └──────────────────────────────────────────────────────────────────────────┘
+   https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199930#overview
+   
+*/
 
 class ImageInput extends StatefulWidget {
   const ImageInput({super.key});
@@ -11,6 +20,16 @@ class ImageInput extends StatefulWidget {
 
 class _ImageInputState extends State<ImageInput> {
   File? _storedImage;
+
+  Future<void> _takePicture() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? imageFile = await picker.pickImage(
+      source: ImageSource.camera,
+      maxHeight: 600,
+    );
+    print(imageFile);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -42,7 +61,7 @@ class _ImageInputState extends State<ImageInput> {
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.primary,
             ),
-            onPressed: () {},
+            onPressed: _takePicture,
           ),
         ),
       ],
