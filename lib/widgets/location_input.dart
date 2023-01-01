@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 
+import '../helpers/location_helper.dart';
+
 /* 
   ┌──────────────────────────────────────────────────────────────────────────┐
   │           Adding a Location Input & The "location" Package               │
@@ -24,14 +26,21 @@ class _LocationInputState extends State<LocationInput> {
   │                  Fetching the User Coordinates                           │
   └──────────────────────────────────────────────────────────────────────────┘
    https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199980#questions/18418692
-   
+   https://github.com/devopsengineering06/flutter_greatplaces_app/commit/b0d405c206195322a24f80f3f93f8cc07c0cf52d
 */
 
   Future<void> _getCurrentUserLocation() async {
     final locData = await Location().getLocation();
 
-    print(locData.latitude);
-    print(locData.longitude);
+    // print(locData.latitude);
+    // print(locData.longitude);
+    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
+      latitude: locData.latitude,
+      longitude: locData.longitude,
+    );
+    setState(() {
+      _previewImageUrl = staticMapImageUrl;
+    });
   }
 
   @override
