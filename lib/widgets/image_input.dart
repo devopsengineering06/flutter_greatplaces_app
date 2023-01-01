@@ -46,7 +46,7 @@ class _ImageInputState extends State<ImageInput> {
   │                              Handling Errors                             │
   └──────────────────────────────────────────────────────────────────────────┘
    https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199956#questions/17730230
-   
+   https://github.com/devopsengineering06/flutter_greatplaces_app/commit/8c8681bcd5d0313238bd8932212d031a63186508
 */
 
     if (imageFile == null) {

@@ -23,23 +23,32 @@ class PlacesListScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: Consumer<GreatPlaces>(
-          child: const Center(
-            child: Text('Start adding some'),
-          ),
-          builder: (ctx, greatPlace, ch) => greatPlace.items.isEmpty
-              ? ch! // include ! for null safety to make sure that you telling dart it will not be a null
-              : ListView.builder(
-                  itemCount: greatPlace.items.length,
-                  itemBuilder: (ctx, i) => ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: FileImage(
-                          greatPlace.items[i].image as File,
-                          scale: 1),
-                    ),
-                    title: Text(greatPlace.items[i].title as String),
-                    onTap: () {},
+        body: FutureBuilder(
+          future: Provider.of<GreatPlaces>(context, listen: false)
+              .fetchAndSetPlaces(),
+          builder: (ctx, snapshot) => snapshot.connectionState ==
+                  ConnectionState.waiting
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Consumer<GreatPlaces>(
+                  child: const Center(
+                    child: Text('Start adding some'),
                   ),
+                  builder: (ctx, greatPlace, ch) => greatPlace.items.isEmpty
+                      ? ch! // include ! for null safety to make sure that you telling dart it will not be a null
+                      : ListView.builder(
+                          itemCount: greatPlace.items.length,
+                          itemBuilder: (ctx, i) => ListTile(
+                            leading: CircleAvatar(
+                              backgroundImage: FileImage(
+                                  greatPlace.items[i].image as File,
+                                  scale: 1),
+                            ),
+                            title: Text(greatPlace.items[i].title as String),
+                            onTap: () {},
+                          ),
+                        ),
                 ),
         ));
   }
