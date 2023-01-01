@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+/* 
+  ┌──────────────────────────────────────────────────────────────────────────┐
+  │           Adding a Location Input & The "location" Package               │
+  └──────────────────────────────────────────────────────────────────────────┘
+   https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199976#questions/18418692
+   https://github.com/devopsengineering06/flutter_greatplaces_app/commit/6e7eb328feaad1d2c00bd1e789419b81265ffe75
+*/
+
 class LocationInput extends StatefulWidget {
   const LocationInput({super.key});
 
