@@ -14,7 +14,9 @@ import '../screens/map_screen.dart';
 */
 
 class LocationInput extends StatefulWidget {
-  const LocationInput({super.key});
+  final Function onSelectPlace;
+
+  const LocationInput(this.onSelectPlace, {super.key});
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -22,6 +24,16 @@ class LocationInput extends StatefulWidget {
 
 class _LocationInputState extends State<LocationInput> {
   String? _previewImageUrl;
+
+  void _showPreview(double lat, double lng) {
+    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
+      latitude: lat,
+      longitude: lng,
+    );
+    setState(() {
+      _previewImageUrl = staticMapImageUrl;
+    });
+  }
 
   /* 
   ┌──────────────────────────────────────────────────────────────────────────┐
@@ -32,17 +44,16 @@ class _LocationInputState extends State<LocationInput> {
 */
 
   Future<void> _getCurrentUserLocation() async {
-    final locData = await Location().getLocation();
+    try {
+      final locData = await Location().getLocation();
+      _showPreview(locData.latitude as double, locData.longitude as double);
+      widget.onSelectPlace(locData.latitude, locData.longitude);
+    } catch (e) {
+      return;
+    }
 
     // print(locData.latitude);
     // print(locData.longitude);
-    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
-      latitude: locData.latitude,
-      longitude: locData.longitude,
-    );
-    setState(() {
-      _previewImageUrl = staticMapImageUrl;
-    });
   }
 
   Future<void> _selectOnMap() async {
@@ -57,9 +68,10 @@ class _LocationInputState extends State<LocationInput> {
     if (selectedLocation == null) {
       return;
     }
-    print(selectedLocation.latitude);
-    print(selectedLocation.longitude);
-    // ....
+    // print(selectedLocation.latitude);
+    // print(selectedLocation.longitude);
+    _showPreview(selectedLocation.latitude, selectedLocation.longitude);
+    widget.onSelectPlace(selectedLocation.latitude, selectedLocation.longitude);
   }
 
   @override

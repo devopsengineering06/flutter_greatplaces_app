@@ -32,8 +32,8 @@ class _MapScreenState extends State<MapScreen> {
   ┌──────────────────────────────────────────────────────────────────────────┐
   │              Allowing Users to Pick a Location on the Map                │
   └──────────────────────────────────────────────────────────────────────────┘
-   https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199996#questions/18305654
-   
+  https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199996#questions/18305654
+  https://github.com/devopsengineering06/flutter_greatplaces_app/commit/f9564e63a503f81201fcc532c63ecf9a5859e61d 
 */
 
   LatLng? _pickedLocation;

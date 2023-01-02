@@ -35,17 +35,19 @@ class PlacesListScreen extends StatelessWidget {
                   child: const Center(
                     child: Text('Start adding some'),
                   ),
-                  builder: (ctx, greatPlace, ch) => greatPlace.items.isEmpty
+                  builder: (ctx, greatPlaces, ch) => greatPlaces.items.isEmpty
                       ? ch! // include ! for null safety to make sure that you telling dart it will not be a null
                       : ListView.builder(
-                          itemCount: greatPlace.items.length,
+                          itemCount: greatPlaces.items.length,
                           itemBuilder: (ctx, i) => ListTile(
                             leading: CircleAvatar(
                               backgroundImage: FileImage(
-                                  greatPlace.items[i].image as File,
+                                  greatPlaces.items[i].image as File,
                                   scale: 1),
                             ),
-                            title: Text(greatPlace.items[i].title as String),
+                            title: Text(greatPlaces.items[i].title as String),
+                            subtitle: Text(greatPlaces
+                                .items[i].location!.address as String),
                             onTap: () {},
                           ),
                         ),
