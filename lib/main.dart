@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import './providers/great_places.dart';
 import './screens/places_list_screen.dart';
 import './screens/add_place_screen.dart';
+import './screens/place_detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,12 +29,14 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Great Places',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch()
-              .copyWith(primary: Colors.indigo, secondary: Colors.amber),
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.indigo,
+          ).copyWith(secondary: Colors.amber),
         ),
         home: const PlacesListScreen(),
         routes: {
           AddPlaceScreen.routeName: (ctx) => const AddPlaceScreen(),
+          PlaceDetailScreen.routeName: (ctx) => const PlaceDetailScreen(),
         },
       ),
     );

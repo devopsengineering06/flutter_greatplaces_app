@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './add_place_screen.dart';
 import '../providers/great_places.dart';
+import './place_detail_screen.dart';
 
 class PlacesListScreen extends StatelessWidget {
   const PlacesListScreen({super.key});
@@ -32,9 +31,6 @@ class PlacesListScreen extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 )
               : Consumer<GreatPlaces>(
-                  child: const Center(
-                    child: Text('Start adding some'),
-                  ),
                   builder: (ctx, greatPlaces, ch) => greatPlaces.items.isEmpty
                       ? ch! // include ! for null safety to make sure that you telling dart it will not be a null
                       : ListView.builder(
@@ -42,15 +38,22 @@ class PlacesListScreen extends StatelessWidget {
                           itemBuilder: (ctx, i) => ListTile(
                             leading: CircleAvatar(
                               backgroundImage: FileImage(
-                                  greatPlaces.items[i].image as File,
+                                  greatPlaces.items[i].image,
                                   scale: 1),
                             ),
-                            title: Text(greatPlaces.items[i].title as String),
-                            subtitle: Text(greatPlaces
-                                .items[i].location!.address as String),
-                            onTap: () {},
+                            title: Text(greatPlaces.items[i].title),
+                            subtitle:
+                                Text(greatPlaces.items[i].location!.address!),
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                  PlaceDetailScreen.routeName,
+                                  arguments: greatPlaces.items[i].id);
+                            },
                           ),
                         ),
+                  child: const Center(
+                    child: Text('Got no Places yet, start adding some!'),
+                  ),
                 ),
         ));
   }

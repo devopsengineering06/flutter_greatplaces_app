@@ -65,6 +65,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
         ),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
@@ -97,6 +98,8 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.secondary,
               foregroundColor: Colors.black,
+              elevation: 0,
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
           ),
         ],

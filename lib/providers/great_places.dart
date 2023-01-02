@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart' as syspaths;
 
 import '../models/place.dart';
 import '../helpers/db_helper.dart';
@@ -27,6 +28,16 @@ class GreatPlaces with ChangeNotifier {
 
   /* 
   ┌─────────────────────────────────────────────────────────────────────────────┐
+  │                                Find By Id                                   │
+  └─────────────────────────────────────────────────────────────────────────────┘
+ */
+
+  Place findById(String id) {
+    return _items.firstWhere((place) => place.id == id);
+  }
+
+  /* 
+  ┌─────────────────────────────────────────────────────────────────────────────┐
   │                                Add Method                                   │
   └─────────────────────────────────────────────────────────────────────────────┘
  */
@@ -36,11 +47,12 @@ class GreatPlaces with ChangeNotifier {
     File pickedImage,
     PlaceLocation pickedLocation,
   ) async {
+    final appDir = await syspaths.getApplicationDocumentsDirectory();
     final address = await LocationHelper.getPlaceAddress(
-        pickedLocation.latitude, pickedLocation.longitude);
+        pickedLocation.latitude!, pickedLocation.longitude!);
     final updatedLocation = PlaceLocation(
-      latitude: pickedLocation.latitude as double,
-      longitude: pickedLocation.longitude as double,
+      latitude: pickedLocation.latitude,
+      longitude: pickedLocation.longitude,
       address: address,
     );
     final newPlace = Place(
@@ -49,15 +61,19 @@ class GreatPlaces with ChangeNotifier {
       title: pickedTitle,
       location: updatedLocation,
     );
+
     _items.add(newPlace);
+
     notifyListeners();
+
     DBHelper.insert('user_places', {
-      'id': newPlace.id as String,
-      'title': newPlace.title as String,
-      'image': newPlace.image?.path as String,
-      'loc_lat': newPlace.location!.latitude as double,
-      'loc_lng': newPlace.location!.longitude as double,
-      'address': newPlace.location!.address as String,
+      'id': newPlace.id,
+      'title': newPlace.title,
+      'image': newPlace.image.path
+          .substring(appDir.path.length, newPlace.image.path.length),
+      'loc_lat': newPlace.location!.latitude!,
+      'loc_lng': newPlace.location!.longitude!,
+      'address': newPlace.location!.address!,
     });
   }
 
@@ -69,6 +85,8 @@ class GreatPlaces with ChangeNotifier {
 
   Future<void> fetchAndSetPlaces() async {
     final dataList = await DBHelper.getData('user_places');
+    final appDir = await syspaths.getApplicationDocumentsDirectory();
+
     _items = dataList
         .map(
           (item) => Place(
@@ -79,10 +97,11 @@ class GreatPlaces with ChangeNotifier {
               longitude: item['loc_lng'],
               address: item['address'],
             ),
-            image: File(item['image']),
+            image: File('${appDir.path}/${item['image']}'),
           ),
         )
         .toList();
+
     notifyListeners();
   }
 }

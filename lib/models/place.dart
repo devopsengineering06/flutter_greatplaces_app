@@ -13,10 +13,10 @@ class PlaceLocation {
 }
 
 class Place {
-  String? id;
-  String? title;
-  PlaceLocation? location;
-  File? image;
+  final String id;
+  final String title;
+  final PlaceLocation? location;
+  final File image;
 
   Place({
     required this.id,

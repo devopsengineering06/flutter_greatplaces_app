@@ -25,10 +25,10 @@ class LocationHelper {
   │                     Storing the Location in SQLite                       │
   └──────────────────────────────────────────────────────────────────────────┘
   https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15200000#questions/18305654
-   
+  https://github.com/devopsengineering06/flutter_greatplaces_app/commit/24baa138c9eae550d26796acc146d3ca8a2e909e 
 */
 
-  static Future<String> getPlaceAddress(double? lat, double? lng) async {
+  static Future<String> getPlaceAddress(double lat, double lng) async {
     final url = Uri.parse(
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&key=$googleApiKey');
     final response = await http.get(url);

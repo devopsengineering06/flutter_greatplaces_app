@@ -12,7 +12,7 @@ import '../models/place.dart';
 */
 
 class MapScreen extends StatefulWidget {
-  final PlaceLocation initialLocation;
+  final PlaceLocation? initialLocation;
   final bool isSelecting;
 
   const MapScreen(
@@ -38,9 +38,9 @@ class _MapScreenState extends State<MapScreen> {
 
   LatLng? _pickedLocation;
 
-  void _selectLocation(LatLng positon) {
+  void _selectLocation(LatLng position) {
     setState(() {
-      _pickedLocation = positon;
+      _pickedLocation = position;
     });
   }
 
@@ -63,20 +63,24 @@ class _MapScreenState extends State<MapScreen> {
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
           target: LatLng(
-            widget.initialLocation.latitude!,
-            widget.initialLocation.longitude!,
+            widget.initialLocation!.latitude!,
+            widget.initialLocation!.longitude!,
           ),
           zoom: 16,
         ),
         onTap: widget.isSelecting ? _selectLocation : null,
-        markers: _pickedLocation != null
-            ? {
+        markers: (_pickedLocation == null && widget.isSelecting)
+            ? {}
+            : {
                 Marker(
                   markerId: const MarkerId('m1'),
-                  position: _pickedLocation!,
+                  position: _pickedLocation ??
+                      LatLng(
+                        widget.initialLocation!.latitude!,
+                        widget.initialLocation!.longitude!,
+                      ),
                 ),
-              }
-            : {},
+              },
       ),
     );
   }

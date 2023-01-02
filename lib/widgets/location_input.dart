@@ -14,7 +14,7 @@ import '../screens/map_screen.dart';
 */
 
 class LocationInput extends StatefulWidget {
-  final Function onSelectPlace;
+  final Function? onSelectPlace;
 
   const LocationInput(this.onSelectPlace, {super.key});
 
@@ -46,8 +46,8 @@ class _LocationInputState extends State<LocationInput> {
   Future<void> _getCurrentUserLocation() async {
     try {
       final locData = await Location().getLocation();
-      _showPreview(locData.latitude as double, locData.longitude as double);
-      widget.onSelectPlace(locData.latitude, locData.longitude);
+      _showPreview(locData.latitude!, locData.longitude!);
+      widget.onSelectPlace!(locData.latitude, locData.longitude);
     } catch (e) {
       return;
     }
@@ -71,7 +71,8 @@ class _LocationInputState extends State<LocationInput> {
     // print(selectedLocation.latitude);
     // print(selectedLocation.longitude);
     _showPreview(selectedLocation.latitude, selectedLocation.longitude);
-    widget.onSelectPlace(selectedLocation.latitude, selectedLocation.longitude);
+    widget.onSelectPlace!(
+        selectedLocation.latitude, selectedLocation.longitude);
   }
 
   @override
@@ -100,14 +101,24 @@ class _LocationInputState extends State<LocationInput> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton.icon(
-              onPressed: _getCurrentUserLocation,
-              icon: const Icon(Icons.location_on),
-              label: const Text('Current Location'),
-            ),
-            TextButton.icon(
               onPressed: _selectOnMap,
               icon: const Icon(Icons.map),
               label: const Text('Select on Map'),
+              style: TextButton.styleFrom(
+                textStyle: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+            TextButton.icon(
+              onPressed: _getCurrentUserLocation,
+              icon: const Icon(Icons.location_on),
+              label: const Text('Current Location'),
+              style: TextButton.styleFrom(
+                textStyle: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
             ),
           ],
         )
