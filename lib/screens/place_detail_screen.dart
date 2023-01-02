@@ -9,7 +9,7 @@ import '../screens/map_screen.dart';
   │  Adding a "Place Detail" Screen & Opening the Map in "readonly" Mode     │
   └──────────────────────────────────────────────────────────────────────────┘
    https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15200008#questions/18305654
-   
+   https://github.com/devopsengineering06/flutter_greatplaces_app/commit/2150a7c60bd0c8a12c4787bcec97f1677ce45711
 */
 
 class PlaceDetailScreen extends StatelessWidget {
