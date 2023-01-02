@@ -5,7 +5,7 @@ const googleApiKey = '';
   │                   Displaying a Static Map Snapshot                       │
   └──────────────────────────────────────────────────────────────────────────┘
    https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/learn/lecture/15199984#overview
-   
+   https://github.com/devopsengineering06/flutter_greatplaces_app/commit/11912bc91f09c7b7a23601d55b8b3439a6fcf3b2
 */
 
 class LocationHelper {
